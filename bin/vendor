@@ -1,0 +1,6 @@
+#!/bin/bash
+
+echo "Cleaning vendor directory ..."
+rm -rf vendor/*
+echo "Cloning Pebble SDK ..."
+git clone https://github.com/pebble/pebble-ios-sdk.git vendor/Pebble
