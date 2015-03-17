@@ -1,14 +1,17 @@
 class AppDelegate
   def application(application, didFinishLaunchingWithOptions:launchOptions)
-    rootViewController = UIViewController.alloc.init
-    rootViewController.title = 'Pebble'
-    rootViewController.view.backgroundColor = UIColor.whiteColor
+    PBPebbleCentral.setDebugLogsEnabled(true)
+    PBPebbleCentral.defaultCentral.setAppUUID('bb05cc07-e2e1-4eb4-a7a6-1898421f6e4a')
 
-    navigationController = UINavigationController.alloc.initWithRootViewController(rootViewController)
+    @watch = PBPebbleCentral.defaultCentral.lastConnectedWatch
+    if @watch
+      NSLog('Watch found ...')
+      @watch.appMessagesLaunch(lambda do |watch, error|
+        NSLog("appMessagesLaunch sent, %@, %@", watch, error)
+      end)
+    end
 
-    @window = UIWindow.alloc.initWithFrame(UIScreen.mainScreen.bounds)
-    @window.rootViewController = navigationController
-    @window.makeKeyAndVisible
+    NSLog('Moving on ...')
 
     true
   end
